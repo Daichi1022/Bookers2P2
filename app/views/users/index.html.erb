@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+    <%= render 'info', user: current_user %>
+    <%= render 'books/newbook', book: @book %>
+    </div>
+    <div class="col-md-8 offset-md-1">
+      <h1>Users</h1>
+      <table class="table table-hover table-inverse">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th colspan="3"></th>
+          </tr>
+          <% @users.each do |user| %>
+
+          <tr>
+            <td><%= image_tag user.get_profile_image(100, 100) %></td>
+            <td><%= user.name %></td>
+            <td><%= link_to "Show", user_path(user) %></td>
+          </tr>
+        <% end %>
+        </thead>
+      </table>
+    </div>
+  </div>
+</div>

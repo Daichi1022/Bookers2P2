@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'users/info', user: @book.user %>
+      <%= render 'newbook', book: @book_new %>
+    </div>
+    <div class="col-md-8 offset-md-1">
+      <h1>Book detail</h1>
+      <table class="table">
+        <tr>
+          <td><%= image_tag @book.user.get_profile_image(100, 100) %><br><%= link_to @book.user.name, user_path(@book) %></td>
+          <td><%= link_to @book.title, book_path(@book) %></td>
+          <td><%= @book.body %></td>
+          <% if @book.user == current_user %>
+          <td><%= link_to "Edit", edit_book_path(@book), class: "btn btn-success" %></td>
+          <td><%= link_to "Destroy", book_path(@book), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？" %></td>
+          <% end %>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
