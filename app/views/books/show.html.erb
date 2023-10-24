@@ -11,12 +11,20 @@
           <td><%= image_tag @book.user.get_profile_image(100, 100) %><br><%= link_to @book.user.name, user_path(@book) %></td>
           <td><%= link_to @book.title, book_path(@book) %></td>
           <td><%= @book.body %></td>
+          <td><%= render "favorites/btn", book: @book %></td>
+          <td><%= render "book_comments/counter", book: @book %></td>
+
+
           <% if @book.user == current_user %>
           <td><%= link_to "Edit", edit_book_path(@book), class: "btn btn-success" %></td>
           <td><%= link_to "Destroy", book_path(@book), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？" %></td>
           <% end %>
         </tr>
       </table>
+      <div class="book-comments-index">
+        <%= render "book_comments/index", book: @book %>
+      </div>
+      <%= render "book_comments/form", book: @book, book_comment: @book_comment %>
     </div>
   </div>
 </div>

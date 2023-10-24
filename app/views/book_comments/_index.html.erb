@@ -1,0 +1,24 @@
+<table class="table table-striped table-hover">
+  <tbody>
+    <% book.book_comments.each do |book_comment| %>
+      <tr>
+        <td style="width: 20%;">
+          <%= link_to user_path(book_comment.user) do %>
+            <%= image_tag book_comment.user.get_profile_image(80,80), class: 'img-thumbnail rounded-circle' %><br>
+            <span class="mt-2 d-block"><%= book_comment.user.name %></span>
+          <% end %>
+        </td>
+        <td>
+          <div class="bg-light p-3 rounded">
+            <%= book_comment.comment %>
+          </div>
+        </td>
+        <td style="width: 20%;">
+          <% if book_comment.user == current_user %>
+            <%= link_to "Destroy", book_book_comment_path(book, book_comment), method: :delete, class: "btn btn-danger btn-sm", remote: true %>
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+  </tbody>
+</table>

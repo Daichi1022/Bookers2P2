@@ -16,6 +16,45 @@ class User < ApplicationRecord
   end
 
   has_many :books, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  has_many :book_comments, dependent: :destroy
+
+# Userモデルに関連するフォロー・フォロワー機能の定義
+
+# フォローされているユーザーに対する関連付け
+# Relationshipモデルのfollowed_idカラムを参照して、逆方向の関連を持つ
+has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+# 上記の関連を経由して、実際にフォローしているユーザー情報を取得
+has_many :followers, through: :reverse_of_relationships, source: :follower
+
+# フォローしているユーザーに対する関連付け
+# Relationshipモデルのfollower_idカラムを参照して、関連を持つ
+has_many :relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+# 上記の関連を経由して、実際にフォローされているユーザー情報を取得
+has_many :followings, through: :relationships, source: :followed
+
+# ユーザーをフォローするメソッド
+# @param [User] user - フォローするユーザー
+# @return [Relationship] - 作成されたフォロー関係
+def follow(user)
+  relationships.create(followed_id: user.id)
+end
+
+# ユーザーのフォローを解除するメソッド
+# @param [User] user - フォローを解除するユーザー
+# @return [Relationship, nil] - 削除されたフォロー関係、またはnil
+def unfollow(user)
+  relationships.find_by(followed_id: user.id)&.destroy
+end
+
+# 指定したユーザーをフォローしているか確認するメソッド
+# @param [User] user - チェック対象のユーザー
+# @return [Boolean] - フォローしている場合はtrue、それ以外はfalse
+def following?(user)
+  followings.include?(user)
+end
+
+
 
   validates :name, uniqueness: true, length: {minimum: 2, maximum: 20}
   validates :introduction, length: {maximum: 50}
