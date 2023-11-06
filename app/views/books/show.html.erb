@@ -8,7 +8,7 @@
       <h1>Book detail</h1>
       <table class="table">
         <tr>
-          <td><%= image_tag @book.user.get_profile_image(100, 100) %><br><%= link_to @book.user.name, user_path(@book) %></td>
+          <td><%= image_tag @book.user.get_profile_image(100, 100) %><br><%= link_to @book.user.name, user_path(@book.user) %></td>
           <td><%= link_to @book.title, book_path(@book) %></td>
           <td><%= @book.body %></td>
           <td><%= render "favorites/btn", book: @book %></td>

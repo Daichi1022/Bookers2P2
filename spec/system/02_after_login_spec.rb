@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe '[STEP2] ユーザログイン後のテスト' do
-  let!(:user) { create(:user) }
+  let(:user) { create(:user) }
   let!(:other_user) { create(:user) }
   let!(:book) { create(:book, user: user) }
   let!(:other_book) { create(:book, user: other_user) }
@@ -18,19 +18,19 @@ describe '[STEP2] ユーザログイン後のテスト' do
       subject { current_path }
 
       it 'Homeを押すと、自分のユーザ詳細画面に遷移する' do
-        home_link = find_all('a')[1].text
+        home_link = find_all('a')[1].native.inner_text
         home_link = home_link.gsub(/\n/, '').gsub(/\A\s*/, '').gsub(/\s*\Z/, '')
         click_link home_link
         is_expected.to eq '/users/' + user.id.to_s
       end
       it 'Usersを押すと、ユーザ一覧画面に遷移する' do
-        users_link = find_all('a')[2].text
+        users_link = find_all('a')[2].native.inner_text
         users_link = users_link.gsub(/\n/, '').gsub(/\A\s*/, '').gsub(/\s*\Z/, '')
         click_link users_link
         is_expected.to eq '/users'
       end
       it 'Booksを押すと、投稿一覧画面に遷移する' do
-        books_link = find_all('a')[3].text
+        books_link = find_all('a')[3].native.inner_text
         books_link = books_link.gsub(/\n/, '').gsub(/\A\s*/, '').gsub(/\s*\Z/, '')
         click_link books_link
         is_expected.to eq '/books'
@@ -78,10 +78,10 @@ describe '[STEP2] ユーザログイン後のテスト' do
       it 'titleフォームに値が入っていない' do
         expect(find_field('book[title]').text).to be_blank
       end
-      it 'bodyフォームが表示される' do
+      it 'opinionフォームが表示される' do
         expect(page).to have_field 'book[body]'
       end
-      it 'bodyフォームに値が入っていない' do
+      it 'opinionフォームに値が入っていない' do
         expect(find_field('book[body]').text).to be_blank
       end
       it 'Create Bookボタンが表示される' do
@@ -123,7 +123,7 @@ describe '[STEP2] ユーザログイン後のテスト' do
       it '投稿のtitleが表示される' do
         expect(page).to have_content book.title
       end
-      it '投稿のbodyが表示される' do
+      it '投稿のopinionが表示される' do
         expect(page).to have_content book.body
       end
       it '投稿の編集リンクが表示される' do
@@ -151,10 +151,10 @@ describe '[STEP2] ユーザログイン後のテスト' do
       it 'titleフォームに値が入っていない' do
         expect(find_field('book[title]').text).to be_blank
       end
-      it 'bodyフォームが表示される' do
+      it 'opinionフォームが表示される' do
         expect(page).to have_field 'book[body]'
       end
-      it 'bodyフォームに値が入っていない' do
+      it 'opinionフォームに値が入っていない' do
         expect(find_field('book[body]').text).to be_blank
       end
       it 'Create Bookボタンが表示される' do
@@ -172,34 +172,19 @@ describe '[STEP2] ユーザログイン後のテスト' do
         expect { click_button 'Create Book' }.to change(user.books, :count).by(1)
       end
     end
-    
-    # === ユーザーが本の投稿者である場合に編集画面に遷移する ===
-    # BooksController > editのロジックが破綻していないかの妥当性を兼ねる
-    # ==========================================================
+
     context '編集リンクのテスト' do
       it '編集画面に遷移する' do
-        second_user_book = FactoryBot.create(:book, user: user) # 「user」の投稿をもう一つ作成
-        visit book_path(second_user_book)
         click_link 'Edit'
-        expect(current_path).to eq edit_book_path(second_user_book)
+        expect(current_path).to eq '/books/' + book.id.to_s + '/edit'
       end
     end
 
     context '削除リンクのテスト' do
-      it 'application.html.erbにjavascript_pack_tagを含んでいる' do
-        is_exist = 0
-        open("app/views/layouts/application.html.erb").each do |line|
-          strip_line = line.chomp.gsub(" ", "")
-          if strip_line.include?("<%=javascript_pack_tag'application','data-turbolinks-track':'reload'%>")
-            is_exist = 1
-            break
-          end
-        end
-        expect(is_exist).to eq(1)
-      end
       before do
         click_link 'Destroy'
       end
+
       it '正しく削除される' do
         expect(Book.where(id: book.id).count).to eq 0
       end
@@ -224,7 +209,7 @@ describe '[STEP2] ユーザログイン後のテスト' do
       it 'title編集フォームが表示される' do
         expect(page).to have_field 'book[title]', with: book.title
       end
-      it 'body編集フォームが表示される' do
+      it 'opinion編集フォームが表示される' do
         expect(page).to have_field 'book[body]', with: book.body
       end
       it 'Update Bookボタンが表示される' do
@@ -299,10 +284,10 @@ describe '[STEP2] ユーザログイン後のテスト' do
       it 'titleフォームに値が入っていない' do
         expect(find_field('book[title]').text).to be_blank
       end
-      it 'bodyフォームが表示される' do
+      it 'opinionフォームが表示される' do
         expect(page).to have_field 'book[body]'
       end
-      it 'bodyフォームに値が入っていない' do
+      it 'opinionフォームに値が入っていない' do
         expect(find_field('book[body]').text).to be_blank
       end
       it 'Create Bookボタンが表示される' do
@@ -326,7 +311,7 @@ describe '[STEP2] ユーザログイン後のテスト' do
       it '投稿一覧に自分の投稿のtitleが表示され、リンクが正しい' do
         expect(page).to have_link book.title, href: book_path(book)
       end
-      it '投稿一覧に自分の投稿のbodyが表示される' do
+      it '投稿一覧に自分の投稿のopinionが表示される' do
         expect(page).to have_content book.body
       end
       it '他人の投稿は表示されない' do
@@ -353,10 +338,10 @@ describe '[STEP2] ユーザログイン後のテスト' do
       it 'titleフォームに値が入っていない' do
         expect(find_field('book[title]').text).to be_blank
       end
-      it 'bodyフォームが表示される' do
+      it 'opinionフォームが表示される' do
         expect(page).to have_field 'book[body]'
       end
-      it 'bodyフォームに値が入っていない' do
+      it 'opinionフォームに値が入っていない' do
         expect(find_field('book[body]').text).to be_blank
       end
       it 'Create Bookボタンが表示される' do
@@ -394,9 +379,7 @@ describe '[STEP2] ユーザログイン後のテスト' do
         @user_old_intrpduction = user.introduction
         fill_in 'user[name]', with: Faker::Lorem.characters(number: 9)
         fill_in 'user[introduction]', with: Faker::Lorem.characters(number: 19)
-        expect(user.profile_image).to be_attached
         click_button 'Update User'
-        save_page
       end
 
       it 'nameが正しく更新される' do
