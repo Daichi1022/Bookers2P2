@@ -2,7 +2,11 @@ class BooksController < ApplicationController
     before_action :is_matching_login_user, only: [:edit]
   def index
     @book = Book.new
-    @books = Book.all
+    to  = Time.current.at_end_of_day   #現在の時間を取得、その日の終わりを設定
+    from  = (to - 6.day).at_beginning_of_day #ビギニングオブデイ　　現在の日の終わりから6日前の時間範囲を計算してその日の始まりを設定
+    @books = Book.includes(:favorites).sort_by {|book| book.favorites.where(created_at: from...to).size}.reverse 
+             #Bookと関連するテーブル(:favorites)をまとめて取得。　　　いいねのついた本を探す　過去一週間　　　降順（お気に入りが多い方から少ない方へ）
+    @book = Book.new
   end
 
   def show
