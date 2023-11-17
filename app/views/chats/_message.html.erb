@@ -1,0 +1,30 @@
+<div class="container">
+	<div class="row">
+        <div class="col-md-12">
+<div class="chat-messages">
+  <% chats.each do |chat| %>
+  
+    <% if chat.user_id == current_user.id %>
+      <div class="message self">
+        <div class="message-body">
+      
+          <%= chat.message %>
+           
+           <%= image_tag chat.user.get_profile_image(100, 100)%>
+        </div>
+      </div>
+    <% else %>
+      <div class="message other">
+        <div class="message-sender"><%= chat.user.name %></div>
+        <div class="message-body">
+           
+          <%= chat.message %>
+            <%= image_tag chat.user.get_profile_image(100, 100)%>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+</div>
+  </div>     
+</div>

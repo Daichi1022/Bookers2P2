@@ -33,6 +33,13 @@ has_many :relationships, class_name: "Relationship", foreign_key: "follower_id",
 # 上記の関連を経由して、実際にフォローされているユーザー情報を取得
 has_many :followings, through: :relationships, source: :followed
 
+
+has_many :user_rooms
+has_many :chats
+has_many :rooms, through: :user_rooms
+#Userとroomをuser_roomsを経由して関連付けてる
+
+
 # ユーザーをフォローするメソッド
 # @param [User] user - フォローするユーザー
 # @return [Relationship] - 作成されたフォロー関係

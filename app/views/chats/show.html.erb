@@ -1,0 +1,19 @@
+<div class="chat-container">
+  <div class="chat-topbar">
+    <h2><%= @user.name %> さんとのチャット</h2>
+  </div>
+  <div class="message">
+    <%= render 'chats/message', chats: @chats %>
+  </div>
+
+  <div class="chat-form">
+    <%= form_with model: @chat, data: {remote: true} do |f| %>
+      <div class="errors">
+         <%= render 'layouts/errors', model: @chat %> 
+      </div>
+      <%= f.text_field :message, placeholder: "メッセージを入力してください", autocomplete: "off" %>
+      <%= f.hidden_field :room_id, value: @room.id %>
+      <%= f.submit "送信" %>
+    <% end %>
+  </div>
+</div>

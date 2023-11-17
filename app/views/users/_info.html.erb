@@ -33,4 +33,7 @@
    <i class="fas fa-user-cog"></i>
   <% end %>
  <% end %>
+ <% if current_user != user && current_user.following?(user) && user.following?(current_user) %>
+  <%= link_to 'チャットを始める', chat_path(user.id), class: "ml-3" %>
+<% end %>
 </div>
