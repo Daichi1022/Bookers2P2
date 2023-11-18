@@ -7,7 +7,7 @@
   </div>
 
   <div class="chat-form">
-    <%= form_with model: @chat, data: {remote: true} do |f| %>
+    <%= form_with model: @chat, local: false do |f| %>
       <div class="errors">
          <%= render 'layouts/errors', model: @chat %> 
       </div>

@@ -25,6 +25,7 @@
               </td>
             <td><%= link_to book.title, book_path(book) %></td>
             <td><%= book.body %></td>
+             <td>閲覧数: <%= book.view_counts.count %></td>
           </tr>
         <% end %>
         </tbody>

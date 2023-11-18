@@ -39,6 +39,8 @@ has_many :chats
 has_many :rooms, through: :user_rooms
 #Userとroomをuser_roomsを経由して関連付けてる
 
+has_many :view_counts, dependent: :destroy
+
 
 # ユーザーをフォローするメソッド
 # @param [User] user - フォローするユーザー
