@@ -27,6 +27,36 @@
             <td><%= book.body %></td>
           </tr>
         <% end %>
+         <thead>
+        <th>今日の投稿</th>
+        <th>昨日の投稿</th>
+        <th>前日比</th>
+         </thead>
+        <tbody>
+          <td><%= @today_book.count %></td>
+     <td><%= @yesterday_book.count %></td>
+     <% if @yesterday_book.count == 0 %>
+     <td>前日の投稿はなし</td>
+     <% else %>
+     <td><% @the_day_before =   @today_book.count / @yesterday_book.count.to_f  %>
+       <%= (@the_day_before * 100).round %>%</td>
+     <% end %>
+        </tbody>
+        <thead>
+            <th>今週の投稿</th>
+            <th>前週の投稿</th>
+              <th>前週比</th>
+        </thead>
+          <tbody>
+           <td><%= @this_week_book.count %></td>
+           <td><%= @last_week_book.count %></td>
+           <% if @last_week_book.count == 0 %>
+           <td>先週の投稿はなし</td>
+           <% else %>
+           <td><% @the_week_before =   @this_week_book.count / @last_week_book.count.to_f  %>
+               <%= (@the_week_before * 100).round %>%</td>
+               <%# 今週➗前週してx100 roundメソッド で四捨五入して%で表示させる%>
+           <% end %>
         </tbody>
       </table>
     </div>

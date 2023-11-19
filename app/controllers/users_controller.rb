@@ -10,6 +10,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @book = Book.new
     @books = @user.books
+    @today_book =  @books.created_today     #本日の投稿
+    @yesterday_book = @books.created_yesterday   #昨日の投稿
+    @this_week_book = @books.created_this_week   #今週の投稿
+    @last_week_book = @books.created_last_week    #先週の投稿
    end
 
    def edit
