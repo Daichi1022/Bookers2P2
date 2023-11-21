@@ -27,38 +27,103 @@
             <td><%= book.body %></td>
           </tr>
         <% end %>
+         </tbody>
+          </table>
+            <table class="table table-hover table-inverse">
          <thead>
-        <th>今日の投稿</th>
-        <th>昨日の投稿</th>
-        <th>前日比</th>
-         </thead>
+  <tr class="text-center">
+    <th class="p-2 text-center">６日前</th>
+    <th class="p-2 text-center">5日前</th>
+    <th class="p-2 text-center">4日前</th>
+    <th class="p-2 text-center">3日前</th>
+    <th class="p-2 text-center">２日前</th>
+    <th class="p-2 text-center">今日の投稿</th>
+    <th class="p-2 text-center">昨日の投稿</th>
+    <th class="p-2 text-center">前日比</th>
+  </tr>
+</thead>
         <tbody>
-          <td><%= @today_book.count %></td>
-     <td><%= @yesterday_book.count %></td>
+        <tr class="text-center">
+     <td class="p-1"><%= @books.created_6days.count %></td>
+     <td class="p-1"><%= @books.created_5days.count %></td>
+     <td class="p-1"><%= @books.created_4days.count %></td>
+     <td class="p-1"><%= @books.created_3days.count %></td>
+     <td class="p-1"><%= @books.created_2days.count %></td>
+     <td class="p-1"><%= @today_book.count %></td>
+     <td class="p-1"><%= @yesterday_book.count %></td>
      <% if @yesterday_book.count == 0 %>
-     <td>前日の投稿はなし</td>
+    <td class="p-1">>前日の投稿はなし</td>
      <% else %>
-     <td><% @the_day_before =   @today_book.count / @yesterday_book.count.to_f  %>
+    <td class="p-1"><% @the_day_before =   @today_book.count / @yesterday_book.count.to_f  %>
        <%= (@the_day_before * 100).round %>%</td>
      <% end %>
+       </tr>
         </tbody>
+
         <thead>
-            <th>今週の投稿</th>
-            <th>前週の投稿</th>
-              <th>前週比</th>
+            <tr class="text-center">
+            <th class="p-2 text-center">今週の投稿</th>
+            <th class="p-2 text-center">前週の投稿</th>
+            <th class="p-2 text-center">前週比</th>
+           </tr>
         </thead>
           <tbody>
-           <td><%= @this_week_book.count %></td>
-           <td><%= @last_week_book.count %></td>
+           <tr class="text-center">
+           <td class="p-1"><%= @this_week_book.count %></td>
+           <td class="p-1"><%= @last_week_book.count %></td>
            <% if @last_week_book.count == 0 %>
-           <td>先週の投稿はなし</td>
+           <td class="p-1">先週の投稿はなし</td>
            <% else %>
-           <td><% @the_week_before =   @this_week_book.count / @last_week_book.count.to_f  %>
+           <td class="p-1"><% @the_week_before =   @this_week_book.count / @last_week_book.count.to_f  %>
                <%= (@the_week_before * 100).round %>%</td>
                <%# 今週➗前週してx100 roundメソッド で四捨五入して%で表示させる%>
            <% end %>
+           </tr>
         </tbody>
       </table>
+<canvas id="myLineChart"></canvas>  <%# ラインチャートが描画されるHTMLのキャンバス要素%>
+  <script>                           
+      $(document).on('turbolinks:load', function() {    // Turbolinksの読み込み完了後にスクリプトを実行
+
+      var ctx = document.getElementById("myLineChart");  // キャンバス要素を取得
+
+      var myLineChart = new Chart(ctx, {     // Chart.jsでラインチャートを初期化
+        type: 'line',
+        data: {
+          labels: ['6日前', '5日前', '4日前', '3日前', '2日前', '', '今日'],       // X軸のラベル（日付）
+          datasets: [
+            {
+              label: '投稿した本の数',    // データセットのラベル
+              data: [<%= @books.created_6days.count %>, <%= @books.created_5days.count %>, <%= @books.created_4days.count %>, <%= @books.created_3days.count %>, <%= @books.created_2days.count %>, <%= @yesterday_book.count %>, <%= @today_book.count%>],
+              borderColor: "blue",
+              backgroundColor: "rgba(0,0,0,0)"
+            }
+          ],
+        },
+        options: {
+          title: {
+            display: true,
+            text: '7日間の投稿数の比較'
+          },
+           // y軸の設定
+          scales: {
+            yAxes: [{
+              ticks: {
+                suggestedMax: 10,
+                suggestedMin: 0,
+                stepSize: 1,
+                 // y軸の表示値のフォーマット
+                callback: function(value, index, values){
+                  return  value
+                }
+              }
+            }]
+          },
+        }
+      });
+    });
+  </script>
+
     </div>
   </div>
 </div>

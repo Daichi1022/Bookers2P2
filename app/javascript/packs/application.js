@@ -12,6 +12,9 @@ import "popper.js";
 import "bootstrap";
 import "../stylesheets/application"; 
 
+import Chart from "chart.js/auto";
+global.Chart = Chart; 
+
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
