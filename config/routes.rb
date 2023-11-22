@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   
+  get 'groups/index'
+  get 'groups/show'
+  get 'groups/new'
+  get 'groups/edit'
   root to: "homes#top"
   get 'home/about' => 'homes#about', as: 'about'
   get "search" => "searches#search"  #検索機能
@@ -14,5 +18,8 @@ Rails.application.routes.draw do
     resources :book_comments, only: [:create, :destroy]
     resource :favorites, only: [:create, :destroy]
   end
+
+  #グループ機能
+  resources :groups, except: [:destroy]
 
 end

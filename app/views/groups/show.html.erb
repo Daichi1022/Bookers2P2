@@ -1,0 +1,35 @@
+<div class='container px-5 px-sm-0'>
+<%= flash[:notice] %>
+  <div class='row'>
+    <div class='col-md-3'>
+      <%= render  "users/info", user: @user %>
+      <%= render "books/newbook",  book: @book  %>
+    </div>
+    <div class='col-md-8 offset-md-1'>
+      <h2>Group Detail</h2>
+      <table class='table table-hover table-inverse'>
+        <thead>
+          <tr>
+            <th></th>
+            <th>グループ名</th>
+            <th>紹介文</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+                <%= image_tag @group.get_image(50, 50) %>
+            </td>
+            </td>
+            <td><%= @group.name %></td>
+            <td><%= @group.introduction %></td>
+            <td>
+              <% if @group.owner_id == current_user.id %>
+                <%= link_to 'Edit', edit_group_path(@group), class: "btn btn-sm btn-success" %>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>

@@ -32,6 +32,9 @@ has_many :followers, through: :reverse_of_relationships, source: :follower
 has_many :relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
 # 上記の関連を経由して、実際にフォローされているユーザー情報を取得
 has_many :followings, through: :relationships, source: :followed
+# グループ機能
+has_many :group_users, dependent: :destroy
+
 
 # ユーザーをフォローするメソッド
 # @param [User] user - フォローするユーザー
