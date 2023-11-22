@@ -12,3 +12,4 @@ Book.create(title: '1週間前のFUKAMARU', body: '1週間前の投稿です。'
 import Chart from "chart.js/auto";
 global.Chart = Chart; 
 に
+7b8b9b
