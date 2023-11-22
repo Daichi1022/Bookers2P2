@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get "search" => "searches#search"  #検索機能
   devise_for :users
   resources :users, only: [:index,:show,:edit,:update] do
+    get "posts_on_date" => "users#posts_on_date"      #指定した日の記録を表示
     resource :relationships, only: [:create, :destroy]
   	get 'followings' => 'relationships#followings', as: 'followings'
   	get 'followers' => 'relationships#followers', as: 'followers'

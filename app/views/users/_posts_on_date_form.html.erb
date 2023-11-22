@@ -1,0 +1,21 @@
+
+<div class="row my-3">
+  <div class="col-auto">
+
+    <%= form_with url: user_posts_on_date_path(user), method: :get, local: false do |f| %>
+  
+      <div class="input-group">
+        <!-- 日付を選択する入力フィールド -->
+        <%= f.date_field :created_at, class: "form-control" %>
+
+        <div class="input-group-append">
+          <%= f.submit "検索", class: "btn btn-info" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<!-- 検索結果を表示するためのコンテナ -->
+<div class="posts_on_date_table mb-2">
+</div>
