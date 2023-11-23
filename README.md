@@ -13,3 +13,5 @@ import Chart from "chart.js/auto";
 global.Chart = Chart; 
 に
 7b8b9b
+８b
+http://railman.net/railsguides/4.2/association_basics.html#has-manyで追加されるメソッド
