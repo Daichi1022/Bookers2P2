@@ -33,6 +33,7 @@
             <td>
               <% if @group.owner_id == current_user.id %>
                 <%= link_to 'Edit', edit_group_path(@group), class: "btn btn-sm btn-success" %>
+                <%= link_to 'Mail',group_new_mail_path(@group), class: "fas fa-paper-plane" %>
               <% elsif @group.users.include?(current_user) %>
                 <%= link_to 'Leave this group', group_path(@group), method: :delete, class: "btn btn-sm btn-danger" %>
               <% else %>

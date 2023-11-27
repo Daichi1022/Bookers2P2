@@ -1,0 +1,13 @@
+<div class="container">
+  <h3 class="margin_top text-center">送信が完了しました</h3>
+  <div class="main_width">
+  <div class="margin_top">内容は以下の通りです。</div>
+    <div class="small_margin_top">
+      [タイトル]<p class="font-weight-bold"> <%= @mail_title %></p>
+    </div>
+    <div>
+      [本文]<p class="font-weight-bold"> <%= safe_join(@mail_content.split("\n"),tag(:br)) %></p> <%# safe_join=>文字列をエスケープせずに連結するため
+       split("\n")=>変数の文字列を改行ごとに分割し、配列に%>
+    </div>
+  </div>
+</div>
