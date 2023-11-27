@@ -19,3 +19,5 @@ global.Chart = Chart;
 ８c  http://railman.net/railsguides/4.2/association_basics.html#has-manyで追加されるメソッド
 
 ９c　https://qiita.com/annaaida/items/81d8a3f1b7ae3b52dc2b
+gem 'dotenv-rails'   #パスワード秘匿用
+https://qiita.com/__Wata16__/items/d2d3aa21623f8c026d5d
