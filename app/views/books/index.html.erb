@@ -7,6 +7,9 @@
     </div>
     <div class="col-md-8 offset-md-1">
       <h1>Books</h1>
+      <%= link_to '新しい順', books_path(latest: "true") %>
+|     <%= link_to '古い順', books_path(old: "true") %>
+|     <%= link_to '評価の高い順', books_path(star_count: "true") %>
      <%= render 'index', books: @books%>
     </div>
   </div>

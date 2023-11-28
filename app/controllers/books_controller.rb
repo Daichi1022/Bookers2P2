@@ -2,7 +2,15 @@ class BooksController < ApplicationController
     before_action :is_matching_login_user, only: [:edit]
   def index
     @book = Book.new
-    @books = Book.all
+    if params[:latest]
+      @books = Book.latest
+    elsif params[:old]
+      @books = Book.old
+    elsif params[:star_count]
+      @books = Book.star_count
+    else
+      @books = Book.all
+    end
   end
 
   def show
