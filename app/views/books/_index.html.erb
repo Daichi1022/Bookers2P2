@@ -17,8 +17,9 @@
             </td>
             <td><%= link_to book.title, book_path(book) %></td>
             <td><%= book.body %></td>
-             <td><%= render "favorites/btn", book: book %></td>
-             <td><%= render "book_comments/counter", book: book %></td>
+            <td><%= render "favorites/btn", book: book %></td>
+            <td><%= render "book_comments/counter", book: book %></td>
+            <td><%= render "static_rate", book: book %></td>
           </tr>
         <% end %>
         </tbody>

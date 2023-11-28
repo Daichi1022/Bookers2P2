@@ -13,3 +13,8 @@ User.create(name: "GABU", email: "G@U", password: "000000")
 Book.create!(title: "FUKAMARU", body: "OREWAFUKMARU",user_id: 1)
 Book.create!(title: "GABAITO", body: "OREWAGABAITO",user_id: 2)
 Book.create!(title: "GABURIASU", body: "OREWAGABURIASU",user_id: 3)
+
+Group.create!(name: "YONSEDAI", introduction: "ORETATIYONSEDAI",owner_id: 1)
+
+GroupUser.create!(user_id: 1 ,group_id:1)
+

@@ -12,6 +12,15 @@ import "popper.js";
 import "bootstrap";
 import "../stylesheets/application"; 
 
+// レビュー機能　　raty.jsというJavaScriptライブラリからRatyというオブジェクトをインポートして、グローバル変数のwindow.ratyに設定しているもの。画面上に表示されているすべてのオブジェクトの親となるオブジェクト,JavaScriptのオブジェクト階層の最上位に位置する
+import Raty from "raty.js"      
+window.raty = function(elem,opt){
+    var raty =  new Raty(elem,opt)
+    raty.init();
+    return raty;
+}
+
+
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
