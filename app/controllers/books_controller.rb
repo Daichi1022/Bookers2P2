@@ -46,17 +46,22 @@ class BooksController < ApplicationController
   end
   end
 
-    def destroy
+  def destroy
       book = Book.find(params[:id])
       book.destroy
       redirect_to books_path
-    end
+  end
+  
+  def search_book
+      @book=Book.new
+      @books = Book.search(params[:keyword])
+  end
 
 
   private
 
   def book_params
-    params.require(:book).permit(:title, :body, :image, :star)
+    params.require(:book).permit(:title, :body, :image, :star,:category)
   end
 
   def is_matching_login_user

@@ -18,6 +18,8 @@ Rails.application.routes.draw do
     resources :book_comments, only: [:create, :destroy]
     resource :favorites, only: [:create, :destroy]
   end
+  get "search_book" => "books#search_book"
+  get 'tagsearches/search', to: 'tagsearches#search'
 
   #グループ機能
   resources :groups do

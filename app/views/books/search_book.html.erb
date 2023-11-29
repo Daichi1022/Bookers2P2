@@ -1,0 +1,31 @@
+<table>
+  <tr>
+    <th>User</th>
+    <th>Title</th>
+    <th>Body</th>
+    <th>Category</th>
+  </tr>
+  <% @books.each do |book| %>
+    <tr>
+      <td>
+        <%= link_to user_path(book.user.id) do %>
+        <%= image_tag book.user.get_profile_image(100, 100) %>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to book_path(book.id) do %>
+          <%= book.title %>
+        <% end %>
+      </td>
+      <td><%= book.body %></td>
+      <td>
+        <%= link_to search_book_path(keyword: book.category) do %>
+          <%= book.category %>
+        <% end %>
+      </td>
+        <td><%= render "favorites/btn", book: book %></td>
+            <td><%= render "book_comments/counter", book: book %></td>
+            <td><%= render "static_rate", book: book %></td>
+    </tr>
+  <% end %>
+</table>
