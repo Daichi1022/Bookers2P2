@@ -26,3 +26,5 @@ spring stop で値が入ることが確認できた。
 
 rails cでnilでspring stopで再読み込みをかける
 7d
+8d
+9d
