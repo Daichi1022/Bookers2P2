@@ -28,3 +28,4 @@ rails cでnilでspring stopで再読み込みをかける
 7d
 8d
 9d
+ja
