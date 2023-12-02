@@ -30,3 +30,4 @@ rails cでnilでspring stopで再読み込みをかける
 9d
 ja4
 aa
+00
