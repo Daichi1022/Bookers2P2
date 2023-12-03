@@ -28,6 +28,8 @@ rails cでnilでspring stopで再読み込みをかける
 7d
 8d
 9d
-ja4
-aa
-00
+ja4    <script src="jquery-3.7.1.min.js"></script>   に書き換えた
+
+
+
+
