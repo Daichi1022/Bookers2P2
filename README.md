@@ -16,6 +16,7 @@ global.Chart = Chart;
 
 
 
+
 ８c  http://railman.net/railsguides/4.2/association_basics.html#has-manyで追加されるメソッド
 
 ９c　https://qiita.com/annaaida/items/81d8a3f1b7ae3b52dc2b
@@ -32,6 +33,6 @@ ja4    <script src="jquery-3.7.1.min.js"></script>   に書き換えた
 
 あv
 ９
-
+ああ
 
 １
