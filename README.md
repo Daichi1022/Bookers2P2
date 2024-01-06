@@ -23,7 +23,7 @@ global.Chart = Chart;
 gem 'dotenv-rails'   #パスワード秘匿用
 https://qiita.com/__Wata16__/items/d2d3aa21623f8c026d5d
 
-spring stop で値が入ることが確認できた。f
+spring stop で値が入ることが確認できた。
 
 rails cでnilでspring stopで再読み込みをかける
 7d
